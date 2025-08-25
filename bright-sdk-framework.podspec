@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
-    s.name         = "bright-sdk-frameworks"
+    s.name         = "bright-sdk-framework"
     s.version      = "1.561.203"
-    s.summary      = "Bright SDK service framework v#{s.version}"
+    s.summary      = "Bright SDK framework v#{s.version}"
     s.description  = "Pod version for Bright SDK framework v#{s.version}."
     s.homepage     = "https://help.bright-sdk.com/hc/en-us/articles/16675528708369-iOS-tvOS-SDK-Integration-Guide#h_01H4DP1Z2W4E8ABGPJ0FKDRY17"
     s.license = { :type => 'MIT' }
