@@ -1,0 +1,292 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0 effective-5.10 (swiftlang-6.0.0.9.10 clang-1600.0.26.2)
+// swift-module-flags: -target x86_64-apple-tvos13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature AccessLevelOnImport -enable-bare-slash-regex -module-name brdsdk
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
+import Combine
+import CommonCrypto
+import DeveloperToolsSupport
+import Foundation
+import Network
+import Swift
+import SwiftUI
+import SystemConfiguration
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_exported import brdsdk
+@objc(BrightAPIChoice) public enum Choice : Swift.Int, Swift.CaseIterable, Swift.CustomStringConvertible, Swift.Sendable {
+  case none = 0
+  case peer = 1
+  case notPeer = 2
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [brdsdk.Choice]
+  public typealias RawValue = Swift.Int
+  nonisolated public static var allCases: [brdsdk.Choice] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(BrightAPIConsentPresentationStyle) public enum ConsentPresentationStyle : Swift.Int {
+  case `default` = 0
+  @available(tvOS, unavailable)
+  case pageSheet = 1
+  @available(tvOS, unavailable)
+  case formSheet = 2
+  case fullScreen = 100
+  case overFullScreen = 101
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(BrightAPIChoiceTriggerType) public enum ChoiceTriggerType : Swift.Int {
+  case consent = 0
+  case manual = 1
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_hasMissingDesignatedInitializers @available(iOS 13.0, tvOS 13.0, *)
+public class brd_api : ObjectiveC.NSObject {
+  public enum api_error : Foundation.LocalizedError {
+    @available(*, deprecated)
+    case init_error(Swift.String)
+    case sdk_not_initialized
+    case enabled_parent_control
+    case sdk_already_initialized
+    case missing_bundle_id
+    case missing_app_name
+    case missing_cwd
+    public var errorDescription: Swift.String? {
+      get
+    }
+  }
+  @objc(BrightAPIAuthorizationStatus) public enum AuthorizationStatus : Swift.Int, Swift.Error {
+    case authorized = 0
+    case sdkNotInitialized = -1
+    case parentControlEnabled = -2
+    public init?(rawValue: Swift.Int)
+    @available(iOS 13.0, tvOS 13.0, *)
+    public typealias RawValue = Swift.Int
+    public static var _nsErrorDomain: Swift.String {
+      get
+    }
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc @preconcurrency public static var onConsentPresented: (@Sendable () -> Swift.Void)?
+  @objc @preconcurrency public static var onConsentClosed: (@Sendable () -> Swift.Void)?
+  @objc @preconcurrency public static var onSDKReady: (@Sendable () -> Swift.Void)?
+  @objc @preconcurrency public static var onChoiceChange: (@Sendable (brdsdk.Choice) -> Swift.Void)?
+  @objc public static var currentLanguage: Foundation.Locale? {
+    @objc get
+    @objc set
+  }
+  @objc public static var currentChoice: brdsdk.Choice {
+    @objc get
+  }
+  @objc public static var sdkVersion: Swift.String {
+    @objc get
+  }
+  @objc public static func get_uuid() -> Swift.String?
+  @objc public static func supportedLanguages() -> [Foundation.Locale]
+  @discardableResult
+  @objc convenience public init(benefit: Swift.String? = nil, agree_btn: Swift.String? = nil, disagree_btn: Swift.String? = nil, opt_out_instructions: Swift.String? = nil, appicon: UIKit.UIImage? = nil, cwd _cwd: Foundation.URL? = nil, sys_app_id: Swift.String? = nil, language: Swift.String? = nil, colors: brdsdk.ColorSettings? = nil, background_image: brdsdk.ConsentBackgroundImage? = nil, opt_in_info: brdsdk.ConsentActionInfo? = nil, opt_out_info: brdsdk.ConsentActionInfo? = nil, fonts: brdsdk.ConsentFontsInfo? = nil, skip_consent: Swift.Bool, campaign: Swift.String? = nil) throws
+  public static func subscribe_on_bw_change(_ block: (@Sendable ([brdsdk.BWStatus]) -> Swift.Void)?)
+  @objc public static func optOut(from triggerType: brdsdk.ChoiceTriggerType = .consent)
+  public static func subscribe(_ key: Swift.String, listener: @escaping (Swift.AnyObject?, Swift.Int) -> ())
+  @objc deinit
+  @objc public static func externalOptIn(from triggerType: brdsdk.ChoiceTriggerType = .consent) throws
+  @objc public static func notifyConsentShown()
+  public func set_network_priorities(handler: @escaping brdsdk.InterfacesPriorityHandler)
+  @objc public static func authorizeDevice() -> brdsdk.brd_api.AuthorizationStatus
+}
+@available(iOS 13.0, *)
+extension brdsdk.brd_api {
+  @available(*, deprecated, message: "Use other constructor without choice-change callback.")
+  @discardableResult
+  @objc convenience dynamic public init(benefit: Swift.String? = nil, agree_btn: Swift.String? = nil, disagree_btn: Swift.String? = nil, opt_out_instructions: Swift.String? = nil, appicon: UIKit.UIImage? = nil, cwd _cwd: Foundation.URL? = nil, sys_app_id: Swift.String? = nil, language: Swift.String? = nil, colors: brdsdk.ColorSettings? = nil, background_image: brdsdk.ConsentBackgroundImage? = nil, opt_in_info: brdsdk.ConsentActionInfo? = nil, opt_out_info: brdsdk.ConsentActionInfo? = nil, fonts: brdsdk.ConsentFontsInfo? = nil, skip_consent: Swift.Bool, campaign: Swift.String? = nil, on_choice_change: ((Swift.Int) -> Swift.Void)? = nil) throws
+  @available(*, deprecated, message: "This method will be removed in a future version.")
+  @objc public static func clear_choice()
+}
+@available(iOS 13.0, tvOS 13.0, *)
+@_cdecl("brdSDK_SetOnReadyCallback")
+public func brdSDK_SetOnReadyCallback(_ callback: @convention(c) () -> Swift.Void)
+@available(iOS 13.0, tvOS 13.0, *)
+@_cdecl("brdSDK_SetOnConsentPresentedCallback")
+public func brdSDK_SetOnConsentPresentedCallback(_ callback: @convention(c) () -> Swift.Void)
+@available(iOS 13.0, tvOS 13.0, *)
+@_cdecl("brdSDK_SetOnConsentClosedCallback")
+public func brdSDK_SetOnConsentClosedCallback(_ callback: @convention(c) () -> Swift.Void)
+@available(iOS 13.0, tvOS 13.0, *)
+@_cdecl("brdSDK_SetOnChoiceChangeCallback")
+public func brdSDK_SetOnChoiceChangeCallback(_ callback: @convention(c) (brdsdk.Choice) -> Swift.Void)
+@available(iOS 13.0, tvOS 13.0, *)
+@_cdecl("brdSDK_Version")
+public func brdSDK_Version() -> Swift.UnsafePointer<Swift.CChar>
+@available(iOS 13.0, tvOS 13.0, *)
+@_cdecl("brdSDK_AuthorizeDevice")
+public func brdSDK_AuthorizeDevice() -> brdsdk.brd_api.AuthorizationStatus
+@available(iOS 13.0, tvOS 13.0, *)
+@_cdecl("brdSDK_GetUUID")
+public func brdSDK_GetUUID() -> Swift.UnsafePointer<Swift.CChar>?
+@available(iOS 13.0, tvOS 13.0, *)
+@_cdecl("brdSDK_ExternalOptIn")
+public func brdSDK_ExternalOptIn(_ trigger: brdsdk.ChoiceTriggerType) -> Swift.Int
+@available(iOS 13.0, tvOS 13.0, *)
+@_cdecl("brdSDK_OptOut")
+public func brdSDK_OptOut(_ trigger: brdsdk.ChoiceTriggerType)
+@available(iOS 13.0, tvOS 13.0, *)
+@_cdecl("brdSDK_CurrentChoice")
+public func brdSDK_CurrentChoice() -> brdsdk.Choice
+@available(iOS 13.0, tvOS 13.0, *)
+@_cdecl("brdSDK_NotifyConsentShown")
+public func brdSDK_NotifyConsentShown()
+@available(iOS 13.0, tvOS 13.0, *)
+@_cdecl("brdSDK_ShowConsent")
+public func brdSDK_ShowConsent(_ _benefit: Swift.UnsafePointer<Swift.CChar>?, _ _agreeTitle: Swift.UnsafePointer<Swift.CChar>?, _ _disagreeTitle: Swift.UnsafePointer<Swift.CChar>?, _ _language: Swift.UnsafePointer<Swift.CChar>?, _ presentationStyle: brdsdk.ConsentPresentationStyle) -> Swift.Bool
+@available(iOS 13.0, tvOS 13.0, *)
+@_cdecl("brdSDK_StaticInit")
+public func brdSDK_StaticInit(_ benefit: Swift.UnsafePointer<Swift.CChar>?, _ agreeTitle: Swift.UnsafePointer<Swift.CChar>?, _ disagreeTitle: Swift.UnsafePointer<Swift.CChar>?, _ optInInstructions: Swift.UnsafePointer<Swift.CChar>?, _ appIcon: Swift.UnsafePointer<Swift.CChar>?, _ language: Swift.UnsafePointer<Swift.CChar>?, _ skipConsent: Swift.Bool, _ consentColors: Swift.UnsafePointer<brdsdk._ConsentColors>?, _ backgroundImage: Swift.UnsafePointer<brdsdk._ConsentImageMeta>?, _ optInInfo: Swift.UnsafePointer<brdsdk._ConsentActionMeta>?, _ optOutInfo: Swift.UnsafePointer<brdsdk._ConsentActionMeta>?, _ fonts: Swift.UnsafePointer<brdsdk._ConsentFontsInfo>?, _ campaign: Swift.UnsafePointer<Swift.CChar>?) -> Swift.Int
+@available(iOS 13.0, tvOS 13.0, *)
+extension brdsdk.brd_api {
+  public enum ConsentResult : Swift.Sendable {
+    case choicePeer
+    case choiceNotPeer
+    case close
+    case failed
+    public static func == (a: brdsdk.brd_api.ConsentResult, b: brdsdk.brd_api.ConsentResult) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  @discardableResult
+  @objc public static func show_consent(_ parent: UIKit.UIViewController? = nil, benefit: Swift.String? = nil, agree_btn: Swift.String? = nil, disagree_btn: Swift.String? = nil, language: Swift.String? = nil, presentationStyle: brdsdk.ConsentPresentationStyle = .default) -> Swift.Bool
+  public static func showConsent(_ parent: UIKit.UIViewController? = nil, presentationStyle: brdsdk.ConsentPresentationStyle = .default, onConsentResult: @escaping (brdsdk.brd_api.ConsentResult) -> Swift.Void) -> Swift.Bool
+  @_Concurrency.MainActor public static func showConsent(_ parent: UIKit.UIViewController? = nil, presentationStyle: brdsdk.ConsentPresentationStyle = .default) async -> brdsdk.brd_api.ConsentResult
+}
+@objc final public class ColorSettings : ObjectiveC.NSObject {
+  final public let background_color: UIKit.UIColor?
+  final public let title_color: UIKit.UIColor?
+  final public let consent_text_color: UIKit.UIColor?
+  final public let consent_links_color: UIKit.UIColor?
+  final public let privacy_text_color: UIKit.UIColor?
+  final public let privacy_links_color: UIKit.UIColor?
+  final public let qr_foreground_color: UIKit.UIColor?
+  final public let qr_background_color: UIKit.UIColor?
+  final public let icons_foreground_color: UIKit.UIColor?
+  final public let icons_background_color: UIKit.UIColor?
+  @objc public init(background_color: UIKit.UIColor? = nil, title_color: UIKit.UIColor? = nil, consent_text_color: UIKit.UIColor? = nil, consent_links_color: UIKit.UIColor? = nil, privacy_text_color: UIKit.UIColor? = nil, privacy_links_color: UIKit.UIColor? = nil, qr_foreground_color: UIKit.UIColor? = nil, qr_background_color: UIKit.UIColor? = nil, icons_foreground_color: UIKit.UIColor? = nil, icons_background_color: UIKit.UIColor? = nil)
+  @objc deinit
+}
+@objc @objcMembers final public class ConsentBackgroundImage : ObjectiveC.NSObject {
+  @objc final public let portrait: UIKit.UIImage
+  @objc final public let landscape: UIKit.UIImage
+  @objc final public let scaleMode: UIKit.UIView.ContentMode
+  @objc override final public var description: Swift.String {
+    @objc get
+  }
+  @objc public init(portrait: UIKit.UIImage, landscape: UIKit.UIImage? = nil, scaleMode: UIKit.UIView.ContentMode = .scaleAspectFill)
+  @objc public init?(portraitName: Swift.String, landscapeName: Swift.String? = nil, scaleMode: UIKit.UIView.ContentMode = .scaleAspectFill, in bundle: Foundation.Bundle = .main)
+  @objc deinit
+}
+@objc @objcMembers final public class ConsentActionInfo : ObjectiveC.NSObject {
+  @objc final public let backgroundImage: UIKit.UIImage?
+  @objc final public let textImage: UIKit.UIImage?
+  @objc final public let backgroundColor: UIKit.UIColor?
+  @objc final public let textColor: UIKit.UIColor?
+  @objc override final public var description: Swift.String {
+    @objc get
+  }
+  @objc public init(backgroundImage: UIKit.UIImage? = nil, textImage: UIKit.UIImage? = nil, backgroundColor: UIKit.UIColor? = nil, textColor: UIKit.UIColor? = nil)
+  @objc public init(backgroundName: Swift.String?, textName: Swift.String? = nil, in bundle: Foundation.Bundle = .main)
+  @objc deinit
+}
+@objc final public class ConsentFontsInfo : ObjectiveC.NSObject {
+  @objc public static var empty: brdsdk.ConsentFontsInfo {
+    @objc get
+  }
+  final public var titleText: UIKit.UIFont? {
+    get
+  }
+  final public var mainText: UIKit.UIFont? {
+    get
+  }
+  final public var licenseText: UIKit.UIFont? {
+    get
+  }
+  final public var iconsText: UIKit.UIFont? {
+    get
+  }
+  final public var buttonsText: UIKit.UIFont? {
+    get
+  }
+  @objc public init(titleText: UIKit.UIFont? = nil, mainText: UIKit.UIFont? = nil, licenseText: UIKit.UIFont? = nil, iconsText: UIKit.UIFont? = nil, buttonsText: UIKit.UIFont? = nil)
+  @discardableResult
+  @objc final public func setTitleText(withNameOrPath nameOrPath: Swift.String, size: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  @objc final public func setMainText(withNameOrPath nameOrPath: Swift.String, size: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  @objc final public func setLicenseText(withNameOrPath nameOrPath: Swift.String, size: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  @objc final public func setIconsText(withNameOrPath nameOrPath: Swift.String, size: CoreFoundation.CGFloat) -> Self
+  @discardableResult
+  @objc final public func setButtonsText(withNameOrPath nameOrPath: Swift.String, size: CoreFoundation.CGFloat) -> Self
+  @objc deinit
+}
+public struct BWStatus : Swift.Sendable {
+  public let type: Swift.String
+  public var total: Swift.UInt64 {
+    get
+  }
+  public var currentMonthTotal: Swift.UInt64 {
+    get
+  }
+  @available(*, deprecated, message: "Use `total` or `currentMonthTotal` indicators")
+  public var oneTimeChange: Swift.UInt64 {
+    get
+  }
+}
+extension Network.NWInterface.InterfaceType {
+  public struct UsagePriority : Swift.RawRepresentable, Swift.Comparable {
+    public var rawValue: Swift.UInt
+    public static let off: Network.NWInterface.InterfaceType.UsagePriority
+    public static let high: Network.NWInterface.InterfaceType.UsagePriority
+    public static let required: Network.NWInterface.InterfaceType.UsagePriority
+    public init(rawValue: Swift.UInt)
+    public static func < (lhs: Network.NWInterface.InterfaceType.UsagePriority, rhs: Network.NWInterface.InterfaceType.UsagePriority) -> Swift.Bool
+    @available(iOS 12.0, tvOS 12.0, watchOS 5.0, macOS 10.14, *)
+    public typealias RawValue = Swift.UInt
+  }
+}
+public typealias InterfacesPriorityHandler = (Network.NWInterface.InterfaceType) -> Network.NWInterface.InterfaceType.UsagePriority
+extension brdsdk.Choice : Swift.Equatable {}
+extension brdsdk.Choice : Swift.Hashable {}
+extension brdsdk.Choice : Swift.RawRepresentable {}
+extension brdsdk.ConsentPresentationStyle : Swift.Equatable {}
+extension brdsdk.ConsentPresentationStyle : Swift.Hashable {}
+extension brdsdk.ConsentPresentationStyle : Swift.RawRepresentable {}
+extension brdsdk.ChoiceTriggerType : Swift.Equatable {}
+extension brdsdk.ChoiceTriggerType : Swift.Hashable {}
+extension brdsdk.ChoiceTriggerType : Swift.RawRepresentable {}
+@available(iOS 13.0, tvOS 13.0, *)
+extension brdsdk.brd_api.AuthorizationStatus : Swift.Equatable {}
+@available(iOS 13.0, tvOS 13.0, *)
+extension brdsdk.brd_api.AuthorizationStatus : Swift.Hashable {}
+@available(iOS 13.0, tvOS 13.0, *)
+extension brdsdk.brd_api.AuthorizationStatus : Swift.RawRepresentable {}
+@available(iOS 13.0, tvOS 13.0, *)
+extension brdsdk.brd_api.ConsentResult : Swift.Equatable {}
+@available(iOS 13.0, tvOS 13.0, *)
+extension brdsdk.brd_api.ConsentResult : Swift.Hashable {}
